@@ -1,0 +1,65 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="box-element" id="form-wrapper">
+				<form class="form">
+					<div id="user-info">
+						<div class="form-field">
+							<input type="text" class="form-control" placeholder="name" name="email">
+						</div>
+						<div class="form-field">
+							<input type="text" class="form-control" placeholder="email" name="email">
+						</div>
+					</div>
+					<div id="shipping-info">
+						<hr>
+						<p>Shipping Information</p>
+						<hr>
+						<div class="form-field">
+							<input type="text" class="form-control" placeholder="address" name="address">
+						</div>
+						<div class="form-field">
+							<input type="text" class="form-control" placeholder="city" name="city">
+						</div>
+						<div class="form-field">
+							<input type="text" class="form-control" placeholder="zipcode" name="zipcode">
+						</div>
+						<div class="form-field">
+							<input type="text" class="form-control" placeholder="state" name="state">
+						</div>
+					</div>
+					<hr>
+
+					<input type="submit" value="continue" class="btn btn-success btn-block" id="form-button">
+				</form>
+			</div>
+			<br>
+			<div class="box-element hidden" id="payment-info">
+				<small>Paypal Option</small>
+			</div>
+			
+		</div>
+
+		<div class="col-lg-6">
+			<div class="box-element">
+				<a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190;Back to cart</a>
+				<hr>
+				<h3>Order Summary</h3>
+				<hr>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price}}</p></div>
+					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+				</div>
+				{% endfor %}
+				<h5>Items:   {{order.get_cart_items}}</h5>
+				<h5>Total: ${{order.get_cart_total}}</h5>
+			</div>	
+		</div>
+		
+	</div>
+{% endblock content%}
